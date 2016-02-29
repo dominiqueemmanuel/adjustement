@@ -2,7 +2,7 @@
 adjustement
 ===========
 
-adjustement is a package that allow to calculate satistical adjustment weight. The main function is `adjustement`: it performs an optimisation to build a weight that respects some constraints.
+adjustement is a package that allows to calculate satistical adjustment weight. The main function is `adjustement`: it performs an optimisation to build a weight that respects some constraints.
 
 To install:
 
