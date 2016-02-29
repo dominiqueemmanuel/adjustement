@@ -1,0 +1,12 @@
+Package: adjustment
+Title: A function to calculate satistical adjustment weight
+Version: 0.0.0.9000
+Authors@R: person("Dominique", "Emmanuel", email = "dominique_emmanuel@hotmail.com", role = c("aut", "cre"))
+Description: The main function adjustment allows to calculate satistical adjustment weight given some margins (equalities or inequalities).
+Depends:
+    R (>= 3.2.3)
+Imports: assertthat, limSolve, magrittr, Matrix, slam
+Suggests: dplyr
+License: GPL-3
+LazyData: true
+RoxygenNote: 5.0.1.9000
