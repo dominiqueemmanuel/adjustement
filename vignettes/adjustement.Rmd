@@ -1,0 +1,28 @@
+---
+title: "Perform a statistical adjustement"
+author: "Dominique EMMANUEL"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Let $X^1,\ldots, X^n$ be some categorical variables, and for each variable $X^i$ let $m^{i1},\ldots,m^{in_i}$ its levels, and $X^{i1},\ldots,X^{in_i}$ the associated dummies. Let $w$ be an initial weight.
+We call **adjustement** a weight $w'$ such that :
+
+  * $w'$ is as close as possible to $w$ (L2 norm)
+  
+  * $\sum_{k=1}^Nw'_k=\sum_{k=1}^Nw_k$
+
+  * $\forall k~~0\leq w_{\text{min}} \leq w'_k \leq w_{\text{max}}$
+  
+  * the weighted values of each levels $m^{ij}$ is equal (and/or greater and/or lower) to specifed value $v^{ij}$.
+  
+Consequently
+
+$$w' = \underset{\forall i,j~~\sum_{k=1}^Nx_kX_k^{ij}=v^{ij}}{\arg\min}~\left\|x-w\right\|^2$$
+  
+NB: Any equality $\sum_{k=1}^Nx_kX_k^{ij}=v^{ij}$ can be replaced by an inequality.
+
