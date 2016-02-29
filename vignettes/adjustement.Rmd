@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-Let $X^1,\ldots, X^n$ be some categorical variables, and for each variable $X^i$ let $m^{i1},\ldots,m^{in_i}$ its levels, and $X^{i1},\ldots,X^{in_i}$ the associated dummies. Let $w$ be an initial weight.
+Let $X^1,\ldots, X^n$ be some categorical variables, and for each variable $X^i$ let $m^{i1},\ldots,m^{in_i}$ be its levels, and let $X^{i1},\ldots,X^{in_i}$ be the associated dummies. Let $w$ be an initial weight.
 We call **adjustement** a weight $w'$ such that :
 
   * $w'$ is as close as possible to $w$ (L2 norm)
