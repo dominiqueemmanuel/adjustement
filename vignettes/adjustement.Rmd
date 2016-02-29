@@ -1,8 +1,8 @@
 ---
-title: "Untitled"
+title: "Perform a statistical adjustement (reweighting)"
 author: "Dominique Emmanuel"
-date: "1 mars 2016"
-output: pdf_document
+date: "`r Sys.Date()`"
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
