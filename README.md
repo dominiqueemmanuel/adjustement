@@ -4,4 +4,4 @@ adjustement
 
 adjustement is a package that allow to calculate satistical adjustment weight.
 
-Let \(X_1, \ldots,X_p\) be categorical variables/
+Let `$X_1, \ldots,X_p$` be categorical variables.
