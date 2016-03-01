@@ -24,7 +24,8 @@ We call **adjustement** a weight $w'$ such that :
 
 Consequently
 
-$$w' = \underset{\forall i,j~~\sum_{k=1}^Nx_kX_k^{ij}=v^{ij}}{\arg\min}~\left\|x-w\right\|^2$$
+$$w' = \underset{
+\substack{\forall i,j~~\sum_{k=1}^Nx_kX_k^{ij}=v^{ij}\\\sum_{k=1}^Nx_k=\sum_{k=1}^Nw_k\\\forall k~~w_{\text{min}} \leq x_k \leq w_{\text{max}}}}{\arg\min}~\left\|x-w\right\|^2$$
 
 NB: Any equality $\sum_{k=1}^Nx_kX_k^{ij}=v^{ij}$ can be replaced by an inequality.
 
