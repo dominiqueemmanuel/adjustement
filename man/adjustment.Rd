@@ -24,7 +24,7 @@ This function allows to calculate satistical adjustment weight given some margin
 \examples{
 data <- iris
 summary(data)
-margins <- list(list(var_name = "Species",value=c(setosa=0.315),
+margins <- list(list(var_name = 'Species',value=c(setosa=0.315),
 min=c(versicolor=0.45),
 max=c(versicolor=0.01)))
 w <- adjustment(data = data,margins = margins)$w
