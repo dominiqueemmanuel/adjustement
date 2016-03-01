@@ -1,7 +1,7 @@
 ---
 title: "Perform a statistical adjustement (reweighting)"
 author: "Dominique Emmanuel"
-date: "`r Sys.Date()`"
+date: '`r Sys.Date()`'
 output: html_document
 ---
 
@@ -9,21 +9,76 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## Theory
 
 Let $X^1,\ldots, X^n$ be some categorical variables, and for each variable $X^i$ let $m^{i1},\ldots,m^{in_i}$ be its levels, and let $X^{i1},\ldots,X^{in_i}$ be the associated dummies. Let $w$ be an initial weight.
 We call **adjustement** a weight $w'$ such that :
 
-  * $w'$ is as close as possible to $w$ (L2 norm)
-  
-  * $\sum_{k=1}^Nw'_k=\sum_{k=1}^Nw_k$
+* $w'$ is as close as possible to $w$ (L2 norm)
 
-  * $\forall k~~0\leq w_{\text{min}} \leq w'_k \leq w_{\text{max}}$
-  
-  * the weighted values of each level $m^{ij}$ is equal (and/or greater and/or lower) to specifed value $v^{ij}$.
-  
+* $\sum_{k=1}^Nw'_k=\sum_{k=1}^Nw_k$
+
+* $\forall k~~0\leq w_{\text{min}} \leq w'_k \leq w_{\text{max}}$
+
+* the weighted values of each level $m^{ij}$ is equal (and/or greater and/or lower) to specifed value $v^{ij}$.
+
 Consequently
 
 $$w' = \underset{\forall i,j~~\sum_{k=1}^Nx_kX_k^{ij}=v^{ij}}{\arg\min}~\left\|x-w\right\|^2$$
-  
+
 NB: Any equality $\sum_{k=1}^Nx_kX_k^{ij}=v^{ij}$ can be replaced by an inequality.
+
+## Practice
+The function `adjustement` allows to perform this optimisation.
+
+Let's take a subest of `esoph` of 50 individuals :
+```{r}
+set.seed(123)
+data <- esoph[sample(seq(nrow(esoph)),50), ]
+w_initial <- rep(nrow(esoph)/nrow(data), nrow(data))
+````
+
+
+Let's define somme margins:
+```{r}
+table(esoph$agegp)/nrow(esoph)
+table(esoph$alcgp)/nrow(esoph)
+margins <- list(
+  list(var_name = "agegp",
+       value = c("25-34" = 0.17, "35-44" = 0.17, "45-54" = 0.17, "55-64" = 0.17),
+       min = c("65-74" = 0.17, "75+" = 0.12)
+  ),
+  list(var_name = "alcgp",
+       value = c("0-39g/day" = 0.26), 
+       min = c("40-79" = 0.3),
+       max = c("80-119" = 0.2)
+  )
+)
+````
+Let's perform the adjustement:
+```{r}
+library(adjustment)
+adj <- adjustment(data = data, margins = margins, weight = w_initial, weight_min = 0.1, weight_max = 30)
+adj$IsError
+w <- adj$w
+````
+
+Let's verify:
+```{r}
+library(dplyr)
+data$w <- w
+data %>%
+  group_by(agegp) %>%
+  summarise(n = sum(w)) %>%
+  merge(data %>% summarise(n0 = sum(w))) %>%
+  mutate(mean = n/n0)
+
+data %>%
+  group_by(alcgp) %>%
+  summarise(n = sum(w)) %>%
+  merge(data %>% summarise(n0 = sum(w))) %>%
+  mutate(mean = n/n0)
+
+hist(w, 10, col = "steelblue", xlab = "new weight",border="white")
+````
 
